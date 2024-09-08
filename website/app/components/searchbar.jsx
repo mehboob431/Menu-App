@@ -18,7 +18,7 @@ const SearchAndFilter = () => {
 
   const getMenuItems = async () => {
     try {
-      const res = await axios.get(globalConstantUtil.baseUrl + '/foodItems/');
+      const res = await axios.get(globalConstantUtil.baseUrl + '/items/get-item');
       setMenuItems(res.data);
     } catch (error) {
       console.error('Error in fetching food items:', error);
@@ -27,7 +27,7 @@ const SearchAndFilter = () => {
 
   const getCategory = async () => {
     try {
-      const res = await axios.get(globalConstantUtil.baseUrl + '/categories/');
+      const res = await axios.get(globalConstantUtil.baseUrl + '/categorys/get-category');
       let newCategories = res.data.map((cat) => ({
         name: cat.name,
         value: cat.name.toLowerCase(),
@@ -95,14 +95,14 @@ const SearchAndFilter = () => {
       </div>
       {(category || searchQuery) && <div className=" static top-40 overflow-y-auto flex flex-wrap gap-2 justify-center items-center px-2 mt-4">
         {menuItems
-          .filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+          .filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
             (category === '' || item.category.toLowerCase() === category))
           .map((item, i) => (
             <MenuCard
               key={i}
               id={item._id}
               imageUrl={item.imageUrl}
-              title={item.title}
+              name={item.name}
               description={item.description}
               ingredient={item.ingredient[0]}
               price={item.price}

@@ -14,7 +14,7 @@ const Page = () => {
 
   const getCategory = async () => {
     try {
-      const res = await axios.get(globalConstantUtil.baseUrl + '/categories/')
+      const res = await axios.get(globalConstantUtil.baseUrl + '/categorys/get-category')
       const newcategories = res.data.map((cat) => ({
         name: cat.name,
         value: cat.name.toLowerCase()

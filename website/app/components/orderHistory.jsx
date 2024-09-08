@@ -6,71 +6,66 @@ import { format } from 'date-fns';
 import CustomerOrderDetailCard from './orderView';
 import { RxCross2 } from "react-icons/rx";
 
-const OrderHistoryCard = ({ closeOrderDialog }) => {
+const orderHistory = ({ closeOrderDialog }) => {
     // State to manage orders
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState()
+    const [data, setData] = useState();
 
+    // Fetch order data
     const getData = async () => {
         try {
-            await axios.get(globalConstantUtil.baseUrl + '/orders/')
+            await axios.get(globalConstantUtil.baseUrl + '/orders/get-orders')
                 .then((res) => {
-                    // console.log('res', res.data)
+                    console.log(res)
                     const localStorageOrders = JSON.parse(localStorage.getItem('orders')) || [];
+                    console.log('LocalStorage Orders:', localStorageOrders);
+                    console.log('Fetched Orders:', res.data);
                     const matchedOrders = res.data.filter((order) => localStorageOrders.includes(order._id));
-                    // console.log('matched orders', matchedOrders);
+                    console.log('Matched Orders:', matchedOrders);
                     setOrders(matchedOrders);
-                })
-
+                });
+        } catch (error) {
+            console.error('error in fetching orders', error);
+        } finally {
+            setLoading(false);
         }
-        catch (error) {
-            console.error('error in fetching orders', error)
-        }
-        finally {
-            setLoading(false); // Set loading to false after fetching data
-        }
-
-    }
+    };
 
     useEffect(() => {
-        getData()
-    }, [])
+        getData();
+    }, []);
 
     useEffect(() => {
         if (orders.find(item => item.status === 'delivered')) {
             setTimeout(() => {
                 removeOrder();
-                // getData()
-                setOrders(orders.filter(item => item.status !== 'delivered'))
+                setOrders(orders.filter(item => item.status !== 'delivered'));
             }, 1 * 60 * 1000);
-
         }
-    }, [orders])
+    }, [orders]);
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const openDialog = (id) => {
         setIsOpen(true);
-        setData(orders.find(order => order._id === id))
-        // closeOrderDialog()
+        setData(orders.find(order => order._id === id));
     };
 
     const closeDialog = () => {
         setIsOpen(false);
-        closeOrderDialog()
+        closeOrderDialog();
     };
 
     const removeOrder = () => {
-        const order = orders.find(item => item.status === 'delivered')
+        const order = orders.find(item => item.status === 'delivered');
         const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        const restOrders = existingOrders.filter(item => item !== order._id)
+        const restOrders = existingOrders.filter(item => item !== order._id);
         localStorage.setItem('orders', JSON.stringify(restOrders));
-    }
-
+    };
 
     return (
-        <div className="max-w-md  mx-auto scroll-smooth h-[34rem] shadow-lg rounded-lg p-6">
+        <div className="max-w-md mx-auto scroll-smooth h-[34rem] shadow-lg rounded-lg p-6">
             {/* Card Title */}
             <h2 className="text-center text-2xl font-bold mb-4 relative z-10">Order History</h2>
             {loading ? (
@@ -79,14 +74,14 @@ const OrderHistoryCard = ({ closeOrderDialog }) => {
                     <p className="text-gray-600">Loading...</p>
                 </div>
             ) : (
-                < div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
+                <div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
                     {/* Iterate over orders and display each order's details */}
                     {orders.map((order, index) => (
-                        <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id) }}>
+                        <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id); }}>
                             {/* Date */}
                             <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
                                 <span className="text-gray-600 font-medium">Date:</span>
-                                <span className="text-gray-800">{format(Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
+                                <span className="text-gray-800">{format(new Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
                             </div>
                             {/* Order Status */}
                             <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
@@ -104,10 +99,10 @@ const OrderHistoryCard = ({ closeOrderDialog }) => {
                                     {order.status}
                                 </span>
                             </div>
-                            {/* Total Price */}
+                            {/* total_Amount Price */}
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-600 font-medium">Total Price:</span>
-                                <span className="text-gray-800 font-semibold">Rs {order.total}</span>
+                                <span className="text-gray-800 font-semibold">Rs {order.total_Amount}</span>
                             </div>
                         </div>
                     ))}
@@ -128,8 +123,8 @@ const OrderHistoryCard = ({ closeOrderDialog }) => {
                     </div>
                 </div>
             )}
-        </div >
+        </div>
     );
 };
 
-export default OrderHistoryCard;
+export default orderHistory;

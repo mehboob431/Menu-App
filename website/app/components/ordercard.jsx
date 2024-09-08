@@ -11,7 +11,7 @@ import { useState } from 'react';
 const OrderCard = ({ closeOrderDialog }) => {
 
     const { items } = useCart();
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total_Amount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -39,7 +39,7 @@ const OrderCard = ({ closeOrderDialog }) => {
                     ))}
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
-                    <h4 className="text-white font-semibold text-md md:text-lg lg:text-xl mb-4 sm:mb-0">Total: Rs {total}</h4>
+                    <h4 className="text-white font-semibold text-md md:text-lg lg:text-xl mb-4 sm:mb-0">total_Amount: Rs {total_Amount}</h4>
                     <button className="bg-[#da6c1e] text-white px-4 py-2 rounded-full w-full sm:w-auto"
                         disabled={items.length === 0}
                         onClick={() => {
@@ -62,7 +62,7 @@ const OrderCard = ({ closeOrderDialog }) => {
                             </button>
                         </div>
                         <div>
-                            <CustomerInfo total={total} closeOrderDialog={closeOrderDialog} closeDialog={closeDialog} />
+                            <CustomerInfo total_Amount={total_Amount} closeOrderDialog={closeOrderDialog} closeDialog={closeDialog} />
                         </div>
                     </div>
                 </div>

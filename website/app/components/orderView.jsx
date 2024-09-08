@@ -83,7 +83,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
 
             try {
 
-                await axios.put(globalConstantUtil.baseUrl + `/orders/${orderData._id}`, { ...orderData, feedback: { stars: values.rating, text: values.feedback } })
+                await axios.put(globalConstantUtil.baseUrl + `/orders/update-order/${orderData._id}`, { ...orderData, feedback: { stars: values.rating, text: values.feedback } })
                     .then((res) => {
                         console.log('res.data', res.data)
                         setOrdersData({ ...orderData, feedback: { stars: values.rating, text: values.feedback } })
@@ -107,7 +107,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
 
         try {
 
-            await axios.put(globalConstantUtil.baseUrl + `/orders/${orderData._id}`, { ...orderData, status: "canceled" })
+            await axios.put(globalConstantUtil.baseUrl + `/orders/update-order/${orderData._id}`, { ...orderData, status: "canceled" })
                 .then((res) => {
                     console.log('res.data', res.data)
                     setOrdersData({ ...orderData, status: "canceled" })
@@ -130,8 +130,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                     <div className="flex flex-col justify-between gap-3">
                         <div>
                             <p><span className="font-semibold">Name:</span> {orderData.name}</p>
-                            <p><span className="font-semibold">Phone No:</span> {orderData.phone}</p>
-                            <p><span className="font-semibold">Address:</span> {orderData.address}</p>
+                            <p><span className="font-semibold">table_No:</span> {orderData.table_No}</p>
                         </div>
                         <div>
                             {showCancelButton && (
@@ -157,7 +156,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                             {showFeedbackModal && (
                                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                                     <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-lg mx-4">
-                                        {/* Modal Title */}
+                                        {/* Modal name */}
                                         <h3 className="text-xl font-semibold mb-4 text-center">Rate Your Order</h3>
 
                                         {/* Star Rating Component */}
@@ -226,6 +225,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                     <h3 className="text-lg font-semibold border-b pb-2 mb-4">Order Info</h3>
                     <div className="mb-4">
                         <p><span className="font-semibold">Order Id:</span> {orderData._id}</p>
+                        <p><span className="font-semibold">Order table_No:</span> {orderData.table_No}</p>
                         <p><span className="font-semibold">Order Date:</span> {format(Date(orderData.createdAt), 'dd MMM yyyy, hh:mm a')}</p>
                         <p><span className="font-semibold">Payment Method:</span> {orderData.paymentMethod === 'cod' ? 'Cash On Delievery' : orderData.paymentMethod}</p>
                         {orderData.orderDescription && <p><span className="font-semibold">Additional Instructions:</span> {orderData.orderDescription}</p>}
@@ -246,29 +246,35 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                     </div>}
                 </div>
             </div>
-
             {/* Items Detail */}
             <div>
                 <h3 className="text-lg font-semibold border-b pb-2 mb-4">Items Detail</h3>
-                {orderData.items.map((item, index) => (
-                    <div key={index} className="flex items-center mb-4">
-                        <img src={item.imageUrl} alt={item.title} className="w-16 h-16 rounded-md mr-4" />
-                        <div>
-                            <div className='flex items-center gap-3'><h4 className="font-semibold">{item.title} </h4>
-                                {item.description && <p> ({item.description})</p>}
-                            </div>
-                            <p>Price : {item.price}</p>
-                            <div className='flex items-center gap-6'><p>Quantity: {item.quantity}  </p>
-                                <p className='font-semibold'>Total: {item.price * item.quantity}</p>
+                {orderData && orderData.item && orderData.item.length > 0 ? (
+                    orderData.item.map((item, index) => (
+                        <div key={index} className="flex items-center mb-4">
+                            <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded-md mr-4" />
+                            <div>
+                                <div className='flex items-center gap-3'>
+                                    <h4 className="font-semibold">{item.name} </h4>
+                                    {item.description && <p>({item.description})</p>}
+                                </div>
+                                <p>Price : {item.price}</p>
+                                <div className='flex items-center gap-6'>
+                                    <p>Quantity: {item.quantity}</p>
+                                    <p className='font-semibold'>Total Amount: {item.price * item.quantity}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p>No items available in this order.</p> // Fallback message if no items are found
+                )}
             </div>
 
-            {/* Total Amount */}
+
+            {/* total_Amount Amount */}
             <div className="border-t pt-4 mt-4 pb-4">
-                <h3 className="text-lg font-semibold float-right ">Total Amount: Rs {orderData.total}</h3>
+                <h3 className="text-lg font-semibold float-right "> Amount: Rs {orderData.total_Amount}</h3>
             </div>
         </div>
     );

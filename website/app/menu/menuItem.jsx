@@ -9,7 +9,9 @@ const menuItem = ({ categories, activeCategory }) => {
 
     const getMenuItems = async () => {
         try {
-            await axios.get('http://localhost:5000/api/items/get-item')
+            // await axios.get(globalConstantUtil.baseUrl + '/foodItems/')
+            await axios.get(globalConstantUtil.baseUrl + '/items/get-item')
+                // await axios.get('http://localhost:5000/api/items/get-item')
                 .then((res) => {
                     console.log('res', res.data)
                     setMenuItems(res.data)
@@ -36,9 +38,9 @@ const menuItem = ({ categories, activeCategory }) => {
                     <MenuCard
                         key={i}
                         id={item._id}
-                        // imageUrl={item.image}
-                        title={item.name}
-                        // description={item.description}
+                        imageUrl={item.image}
+                        name={item.name}
+                        description={item.description}
                         // ingredient={item.ingredient[0]}
                         price={item.price}
                     />
