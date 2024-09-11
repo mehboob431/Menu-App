@@ -8,7 +8,6 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
     const { addItemToCart } = useCart();
     const [showToast, setShowToast] = useState(false);
 
-
     const handleAddToCart = () => {
         addItemToCart({ id, imageUrl, name, description, ingredient, price });
         setShowToast(true);
@@ -18,14 +17,16 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
         setShowToast(false);
     };
 
-
     return (
         <div className="bg-[#1c1816] text-white rounded-lg overflow-hidden shadow-lg relative max-w-xs mx-auto">
             <div className="max-h-80 h-80 relative rounded">
                 <Image src={imageUrl} alt={name} width={400} height={300} className="rounded h-full" />
             </div>
             <div className="p-4">
-                <h3 className="font-bold text-lg">{name}{description && ` (${description})`}</h3>
+                <h3 className="font-bold text-lg">
+                    {name}
+                    {description && <span className="description-text"> ({description})</span>}
+                </h3>
                 <p className="text-sm text-gray-400">{ingredient}</p>
                 <div className="flex justify-between items-center mt-4">
                     <span className="text-lg font-semibold">Rs {price}</span>
@@ -40,7 +41,6 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
                 </button>
             </div>
             {showToast && <Toast message="Item is added to cart" onClose={handleCloseToast} />}
-
         </div>
     );
 };
