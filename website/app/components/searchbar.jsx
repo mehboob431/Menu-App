@@ -101,10 +101,10 @@ const SearchAndFilter = () => {
             <MenuCard
               key={i}
               id={item._id}
-              imageUrl={item.imageUrl}
+              imageUrl={item.image}
               name={item.name}
               description={item.description}
-              ingredient={item.ingredient[0]}
+              // ingredient={item.ingredient[0]}
               price={item.price}
             />
           ))}
