@@ -40,18 +40,21 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
       await axios.post(globalConstantUtil.baseUrl + '/orders/add-orders', orderData)
         .then((res) => {
           console.log('res', res.data);
-          const existingOrders = JSON.parse(localStorage.getItem('/orders/get-orders')) || [];
-          existingOrders.push(res.data.data._id);
-          localStorage.setItem('orders', JSON.stringify(existingOrders));
-          clearItemCart();
-          closeOrderDialog();
-          closeDialog();
+          if (res.data.data._id) {
+            const existingOrders = JSON.parse(localStorage.getItem('/orders/get-orders')) || [];
+            existingOrders.push(res.data.data._id);
+            localStorage.setItem('orders', JSON.stringify(existingOrders));
+            clearItemCart();
+            closeOrderDialog();
+            closeDialog();
 
-          message.success('Order Successfully submitted!');
+            message.success(res.data.message);
+          }
+
         });
     } catch (error) {
       console.error('error in Adding Order', error.response?.data || error.message);
-      message.error('Failed to submit order!');
+      message.error(error.response?.data || error.message);
     }
   };
 
