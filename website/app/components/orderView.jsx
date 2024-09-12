@@ -6,10 +6,7 @@ import globalConstantUtil from '../globalConstantUtils';
 import axios from 'axios';
 
 const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
-    // Example order data
-    // closeOrderDialog()
     const [orderData, setOrdersData] = useState(data)
-
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [showCancelButton, setShowCancelButton] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(0);
@@ -252,7 +249,7 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                 {orderData && orderData.item && orderData.item.length > 0 ? (
                     orderData.item.map((item, index) => (
                         <div key={index} className="flex items-center mb-4">
-                            <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded-md mr-4" />
+                            <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md mr-4" />
                             <div>
                                 <div className='flex items-center gap-3'>
                                     <h4 className="font-semibold">{item.name} </h4>

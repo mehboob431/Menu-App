@@ -16,7 +16,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import OrderCard from './ordercard';
 import OrderHistoryCard from './orderHistory';
-
+import { useCart } from '../context/cartContext';
 const pages = [
   { label: 'Home', icon: <MdHome />, href: '/' },
   { label: 'Menu', icon: <MdMenuBook />, href: '/menu' },
@@ -25,7 +25,8 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
-
+  const { getCartItemCount } = useCart();
+  const itemCount = getCartItemCount();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -99,9 +100,14 @@ function ResponsiveAppBar() {
                 ))}
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: 1, flexWrap: 'wrap' }}>
-
-                <MdOutlineShoppingCart className='h-6 w-6' onClick={openDialog} />
-
+                <div className="relative">
+                  <MdOutlineShoppingCart className='h-6 w-6' onClick={openDialog} />
+                  {itemCount > 0 && (
+                    <span className="absolute -top-5 -right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                      {itemCount}
+                    </span>
+                  )}
+                </div>
                 <FaRegCircleUser className='h-5 w-5' onClick={openOrderDialog} />
               </Box>
             </Box>

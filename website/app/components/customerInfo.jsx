@@ -24,7 +24,7 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
     name: Yup.string().required('Name is required'),
     table_No: Yup.number().required('Table Number is required'),
     orderDescription: Yup.string().required('Additional Instruction'),
-    paymentMethod: Yup.string().oneOf(['online', 'card'], 'Select a valid payment method').required('Payment method is required'),
+    paymentMethod: Yup.string().oneOf(['card', 'cash'], 'Select a valid payment method').required('Payment method is required'),
   });
 
   const onSubmit = async (values) => {
@@ -110,12 +110,12 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
                 <label className="block text-white mb-2">Payment Method</label>
                 <div className="flex flex-col items-start justify-start space-y-2 space-x-0">
                   <label className="text-white">
-                    <Field type="radio" name="paymentMethod" value="online" />
+                    <Field type="radio" name="paymentMethod" value="card" />
                     <span className="ml-2">Card</span>
                     <p className='ml-4'></p>
                   </label>
                   <label className="text-white">
-                    <Field type="radio" name="paymentMethod" value="card" />
+                    <Field type="radio" name="paymentMethod" value="cash" />
                     <span className="ml-2">Cash</span>
                   </label>
                 </div>

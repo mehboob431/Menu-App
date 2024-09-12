@@ -22,6 +22,10 @@ export const CartProvider = ({ children }) => {
         });
     };
 
+    const getCartItemCount = () => {
+        return items.length; // Fixed: Changed cartItems to items
+    };
+
     const removeItemFromCart = (itemId) => {
         setItems(prevItems => prevItems.filter(item => item.id !== itemId));
     };
@@ -33,11 +37,11 @@ export const CartProvider = ({ children }) => {
     };
 
     const clearItemCart = () => {
-        setItems([])
-    }
+        setItems([]);
+    };
 
     return (
-        <CartContext.Provider value={{ items, addItemToCart, removeItemFromCart, updateItemQuantity, clearItemCart }}>
+        <CartContext.Provider value={{ items, addItemToCart, removeItemFromCart, updateItemQuantity, clearItemCart, getCartItemCount }}>
             {children}
         </CartContext.Provider>
     );
