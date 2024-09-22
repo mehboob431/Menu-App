@@ -40,7 +40,7 @@ const Page = () => {
         {categories.length > 0 && (
           <>
             <MenuNavbar categories={categories} setActiveCategory={setActiveCategory} />
-            <div className='relative py-2'>
+            <div className='relative '>
               <MenuItem categories={categories} activeCategory={activeCategory} />
             </div>
           </>

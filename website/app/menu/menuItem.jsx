@@ -33,7 +33,7 @@ const menuItem = ({ categories, activeCategory }) => {
 
     return (
         <div className='bg-gray-900 min-h-screen flex flex-col items-start justify-center gap-4 overflow-y-auto'>
-            <div className='flex flex-wrap gap-2 justify-center items-start px-2'>
+            <div className='flex flex-wrap gap-6 justify-center items-start px-2 pt-10 pb-10 '>
                 {filteredItems.map((item, i) => (
                     <MenuCard
                         key={i}

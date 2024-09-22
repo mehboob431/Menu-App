@@ -84,6 +84,7 @@ const SearchAndFilter = () => {
             onChange={handleSearchInputChange}
             placeholder="Search Food"
             className="w-full bg-black text-white border border-white rounded-lg p-2"
+
           />
           <button
             onClick={handleSearch}

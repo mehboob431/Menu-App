@@ -74,40 +74,40 @@ const orderHistory = ({ closeOrderDialog }) => {
                     <p className="text-gray-600">Loading...</p>
                 </div>
             ) : (
-                <div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
-                    {/* Iterate over orders and display each order's details */}
-                    {orders.map((order, index) => (
-                        <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id); }}>
-                            {/* Date */}
-                            <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
-                                <span className="text-gray-600 font-medium">Date:</span>
-                                <span className="text-gray-800">{format(new Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
+                    <div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
+                        {/* Iterate over orders and display each order's details */}
+                        {orders.map((order, index) => (
+                            <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id); }}>
+                                {/* Date */}
+                                <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
+                                    <span className="text-gray-600 font-medium">Date:</span>
+                                    <span className="text-gray-800">{format(new Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
+                                </div>
+                                {/* Order Status */}
+                                <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
+                                    <span className="text-gray-600 font-medium">Order Status:</span>
+                                    <span
+                                        className={`font-medium ${order.status === 'pending'
+                                            ? 'text-orange-500'
+                                            : order.status === 'confirmed'
+                                                ? 'text-blue-500'
+                                                : order.status === 'delivered'
+                                                    ? 'text-green-500'
+                                                    : 'text-red-500'
+                                            }`}
+                                    >
+                                        {order.status}
+                                    </span>
+                                </div>
+                                {/* total_Amount Price */}
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600 font-medium">Total Price:</span>
+                                    <span className="text-gray-800 font-semibold">Rs {order.total_Amount}</span>
+                                </div>
                             </div>
-                            {/* Order Status */}
-                            <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
-                                <span className="text-gray-600 font-medium">Order Status:</span>
-                                <span
-                                    className={`font-medium ${order.status === 'pending'
-                                        ? 'text-orange-500'
-                                        : order.status === 'confirmed'
-                                            ? 'text-blue-500'
-                                            : order.status === 'delivered'
-                                                ? 'text-green-500'
-                                                : 'text-red-500'
-                                        }`}
-                                >
-                                    {order.status}
-                                </span>
-                            </div>
-                            {/* total_Amount Price */}
-                            <div className="flex justify-between items-center">
-                                <span className="text-gray-600 font-medium">Total Price:</span>
-                                <span className="text-gray-800 font-semibold">Rs {order.total_Amount}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+                        ))}
+                    </div>
+                )}
             {isOpen && (
                 <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-black z-50">
                     <div className="bg-gray-900 w-11/12 sm:w-2/3 md:w-1/2 lg:w-2/3 h-11/12 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">

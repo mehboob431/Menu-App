@@ -6,6 +6,7 @@ import globalConstantUtil from '../globalConstantUtils';
 import axios from 'axios';
 
 const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
+    console.log('data', data)
     const [orderData, setOrdersData] = useState(data)
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [showCancelButton, setShowCancelButton] = useState(false);
@@ -246,10 +247,10 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
             {/* Items Detail */}
             <div>
                 <h3 className="text-lg font-semibold border-b pb-2 mb-4">Items Detail</h3>
-                {orderData && orderData.item && orderData.item.length > 0 ? (
-                    orderData.item.map((item, index) => (
+                {orderData && orderData.cartItems && orderData.cartItems.length > 0 ? (
+                    orderData.cartItems.map((item, index) => (
                         <div key={index} className="flex items-center mb-4">
-                            <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md mr-4" />
+                            {/* <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md mr-4" /> */}
                             <div>
                                 <div className='flex items-center gap-3'>
                                     <h4 className="font-semibold">{item.name} </h4>
@@ -264,8 +265,8 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                         </div>
                     ))
                 ) : (
-                    <p>No items available in this order.</p> // Fallback message if no items are found
-                )}
+                        <p>No items available in this order.</p> // Fallback message if no items are found
+                    )}
             </div>
 
 

@@ -12,7 +12,7 @@ const menunavbar = ({ categories, setActiveCategory }) => {
     }
 
     return (
-        <div className='sticky top-20 z-50 flex overflow-x-auto justify-start md:justify-start lg:justify-center items-center gap-2 bg-white py-1 md:py-2 px-2 '>
+        <div className='sticky top-16 z-50 flex overflow-x-auto justify-start md:justify-start lg:justify-center items-center gap-2 bg-white py-1 md:py-2 px-2 '>
             <div className={`py-1 px-2 text-center text-sm md:text-md rounded hover:bg-[#da6c1e] hover:text-white ${active === "all" ? 'bg-[#da6c1e] text-white' : 'bg-transparent text-gray-700'}`}
                 onClick={() => handleActive("all")}
             >
