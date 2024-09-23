@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ImSearch } from "react-icons/im";
 import MenuCard from './menucard';
 import globalConstantUtil from '../globalConstantUtils';
 
@@ -86,12 +85,6 @@ const SearchAndFilter = () => {
             className="w-full bg-black text-white border border-white rounded-lg p-2"
 
           />
-          <button
-            onClick={handleSearch}
-            className="ml-2 bg-[#da6c1e] text-white px-4 py-2 rounded-full"
-          >
-            <ImSearch />
-          </button>
         </div>
       </div>
       {(category || searchQuery) && <div className=" static top-40 overflow-y-auto flex flex-wrap gap-2 justify-center items-center px-2 mt-4">
