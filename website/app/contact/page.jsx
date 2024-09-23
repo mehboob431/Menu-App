@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Pageheading from '../components/pageheading'
 import ContactForm from './contact-form'
@@ -13,7 +14,7 @@ function page() {
       </div>
       <div className='flex bg-white flex-col-reverse md:flex-row justify-around gap-2 px-8 items-center '>
         <div className=''>
-          <ContactInfo/>
+          <ContactInfo />
         </div>
         <div className='bg-white'>
           <ContactForm />

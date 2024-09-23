@@ -61,17 +61,23 @@ function ResponsiveAppBar() {
   const closeOrderDialog = () => {
     setIsOrderOpen(false);
   };
+  const [orderCount, setOrderCount] = React.useState(0)
 
-  const orders = JSON.parse(localStorage.getItem('orders')) || [];
-  const orderCount = orders.length;
+  if (typeof window !== 'undefined') {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    React.useEffect(() => {
 
+      console.log(orders.length)
+      setOrderCount(orders.length);
+    }, [orders])
+  }
   return (
     <div className='relative'>
       <div className='navbar'>
         {/* Background image with overlay */}
         <AppBar position="static" sx={{ backgroundColor: 'black', borderBottomLeftRadius: 7, borderBottomRightRadius: 7, opacity: 0.8, padding: 1, }}>
           <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Box className="md:hidden w-full">
+            <Box className="lg:hidden w-full">
               <IconButton aria-label="menu" onClick={handleOpenNavMenu} className="text-white">
                 <MenuIcon />
               </IconButton>

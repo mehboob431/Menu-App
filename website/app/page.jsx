@@ -1,4 +1,4 @@
-
+"use client"
 import Link from 'next/link';
 import Home from './components/home'
 import MenuCard from './components/menucard'

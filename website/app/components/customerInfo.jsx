@@ -41,7 +41,7 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
         .then((res) => {
           console.log('res', res.data);
           if (res.data.data._id) {
-            const existingOrders = JSON.parse(localStorage.getItem('/orders/get-orders')) || [];
+            const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
             existingOrders.push(res.data.data._id);
             localStorage.setItem('orders', JSON.stringify(existingOrders));
             clearItemCart();
