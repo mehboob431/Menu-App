@@ -265,8 +265,8 @@ const CustomerOrderDetailCard = ({ closeOrderDialog, data }) => {
                         </div>
                     ))
                 ) : (
-                        <p>No items available in this order.</p> // Fallback message if no items are found
-                    )}
+                    <p>No items available in this order.</p> // Fallback message if no items are found
+                )}
             </div>
 
 

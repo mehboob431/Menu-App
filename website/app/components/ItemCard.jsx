@@ -38,7 +38,7 @@ const ItemCard = ({ item }) => {
                 <div className="flex flex-col items-start justify-around px-1 w-full">
                     <div className="flex flex-row items-start justify-between px-1 w-full">
                         <div className="flex flex-col items-start max-w-7/12 py-2 px-1">
-                            <h3 className="text-white font-medium">{item.name}<span className='text-gray-300 font-normal'>{item.description && ` ${item.description}`}</span></h3>
+                            <h3 className="text-white font-medium">{item.name}</h3>
                             <p className="text-white font-thin">{`(${item.ingredient})`}</p>
                         </div>
                         <p className="text-gray-400 px-2 py-2 text-md font-medium md:text-lg lg:text-xl">{`Rs ${item.price}`}</p>

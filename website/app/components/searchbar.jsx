@@ -61,7 +61,8 @@ const SearchAndFilter = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-full w-full p-4 md:p-6 rounded-3xl relative">
-      <div className=" sticky top-20 z-50 bg-black bg-opacity-80 flex flex-col md:flex-row gap-4 items-center justify-around p-4 md:p-6 rounded-lg text-white w-full max-w-2xl">
+      {/* Search bar and category select */}
+      <div className="sticky top-20 z-50 bg-black bg-opacity-80 flex flex-col md:flex-row gap-4 items-center justify-around p-4 md:p-6 rounded-lg text-white w-full max-w-2xl">
         <div className="md:w-1/3 w-full">
           <select
             value={category}
@@ -69,7 +70,6 @@ const SearchAndFilter = () => {
             className="w-full bg-black text-white border border-white rounded-lg p-2"
           >
             {categories.map((cat, i) => (
-
               <option key={i} value={cat.value}>
                 {cat.name}
               </option>
@@ -83,26 +83,30 @@ const SearchAndFilter = () => {
             onChange={handleSearchInputChange}
             placeholder="Search Food"
             className="w-full bg-black text-white border border-white rounded-lg p-2"
-
           />
         </div>
       </div>
-      {(category || searchQuery) && <div className=" static top-40 overflow-y-auto flex flex-wrap gap-2 justify-center items-center px-2 mt-4">
-        {menuItems
-          .filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            (category === '' || item.category.toLowerCase() === category))
-          .map((item, i) => (
-            <MenuCard
-              key={i}
-              id={item._id}
-              imageUrl={item.image}
-              name={item.name}
-              description={item.description}
-              // ingredient={item.ingredient[0]}
-              price={item.price}
-            />
-          ))}
-      </div>}
+
+      {/* Menu items filtered based on search and category */}
+      {(category || searchQuery) && (
+        <div className="relative top-32 lg:top-28 overflow-y-auto flex flex-wrap gap-2 justify-start items-start py-2 px-2 mt-4 max-h-screen">
+          {menuItems
+            .filter((item) =>
+              item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+              (category === '' || item.category.toLowerCase() === category)
+            )
+            .map((item, i) => (
+              <MenuCard
+                key={i}
+                id={item._id}
+                imageUrl={item.image}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

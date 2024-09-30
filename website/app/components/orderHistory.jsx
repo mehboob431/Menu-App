@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import globalConstantUtil from '../globalConstantUtils';
@@ -6,27 +6,35 @@ import { format } from 'date-fns';
 import CustomerOrderDetailCard from './orderView';
 import { RxCross2 } from "react-icons/rx";
 
-const orderHistory = ({ closeOrderDialog }) => {
-    // State to manage orders
+const OrderHistory = ({ closeOrderDialog }) => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState();
+    const [timeRemaining, setTimeRemaining] = useState({}); // To hold remaining time for each order
 
     // Fetch order data
     const getData = async () => {
         try {
-            await axios.get(globalConstantUtil.baseUrl + '/orders/get-orders')
-                .then((res) => {
-                    console.log(res)
-                    const localStorageOrders = JSON.parse(localStorage.getItem('orders')) || [];
-                    console.log('LocalStorage Orders:', localStorageOrders);
-                    console.log('Fetched Orders:', res.data);
-                    const matchedOrders = res.data.filter((order) => localStorageOrders.includes(order._id));
-                    console.log('Matched Orders:', matchedOrders);
-                    setOrders(matchedOrders);
-                });
+            const res = await axios.get(globalConstantUtil.baseUrl + '/orders/get-orders');
+            const localStorageOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            const matchedOrders = res.data.filter((order) => localStorageOrders.includes(order._id));
+            setOrders(matchedOrders);
+
+            // Initialize time remaining for each order
+            const updatedTimeRemaining = {};
+            matchedOrders.forEach((order) => {
+                if (order.status === 'confirmed') {
+                    const createdAt = new Date(order.createdAt);
+                    const timeTake = order.timeTake * 60 * 1000; // Convert minutes to milliseconds
+                    const now = new Date();
+                    const timeElapsed = now - createdAt;
+                    let remainingTime = Math.max(0, timeTake - timeElapsed);
+                    updatedTimeRemaining[order._id] = Math.floor(remainingTime / 1000); // Store remaining time in seconds
+                }
+            });
+            setTimeRemaining(updatedTimeRemaining);
         } catch (error) {
-            console.error('error in fetching orders', error);
+            console.error('Error in fetching orders', error);
         } finally {
             setLoading(false);
         }
@@ -37,12 +45,29 @@ const orderHistory = ({ closeOrderDialog }) => {
     }, []);
 
     useEffect(() => {
-        if (orders.find(item => item.status === 'delivered')) {
-            setTimeout(() => {
-                removeOrder();
-                setOrders(orders.filter(item => item.status !== 'delivered'));
-            }, 1 * 60 * 1000);
-        }
+        const interval = setInterval(() => {
+            setTimeRemaining((prevTime) => {
+                const newTime = { ...prevTime };
+                let anyTimeRemaining = false; // Flag to check if there's any time remaining
+
+                Object.keys(newTime).forEach((orderId) => {
+                    if (newTime[orderId] > 0) {
+                        newTime[orderId] -= 1; // Decrease remaining time by 1 second
+                        anyTimeRemaining = true;
+                    } else {
+                        delete newTime[orderId]; // Remove order if time is up
+                    }
+                });
+
+                if (!anyTimeRemaining) {
+                    clearInterval(interval); // Stop the interval if no time is left for any order
+                }
+                return newTime;
+            });
+        }, 1000);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
     }, [orders]);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -57,16 +82,14 @@ const orderHistory = ({ closeOrderDialog }) => {
         closeOrderDialog();
     };
 
-    const removeOrder = () => {
-        const order = orders.find(item => item.status === 'delivered');
+    const removeOrder = (id) => {
         const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        const restOrders = existingOrders.filter(item => item !== order._id);
+        const restOrders = existingOrders.filter(item => item !== id);
         localStorage.setItem('orders', JSON.stringify(restOrders));
     };
 
     return (
         <div className="max-w-md mx-auto scroll-smooth h-[34rem] shadow-lg rounded-lg p-6">
-            {/* Card Title */}
             <h2 className="text-center text-2xl font-bold mb-4 relative z-10">Order History</h2>
             {loading ? (
                 <div className="flex justify-center items-center">
@@ -74,50 +97,47 @@ const orderHistory = ({ closeOrderDialog }) => {
                     <p className="text-gray-600">Loading...</p>
                 </div>
             ) : (
-                    <div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
-                        {/* Iterate over orders and display each order's details */}
-                        {orders.map((order, index) => (
-                            <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id); }}>
-                                {/* Date */}
-                                <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
-                                    <span className="text-gray-600 font-medium">Date:</span>
-                                    <span className="text-gray-800">{format(new Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
-                                </div>
-                                {/* Order Status */}
-                                <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
-                                    <span className="text-gray-600 font-medium">Order Status:</span>
-                                    <span
-                                        className={`font-medium ${order.status === 'pending'
-                                            ? 'text-orange-500'
-                                            : order.status === 'confirmed'
-                                                ? 'text-blue-500'
-                                                : order.status === 'delivered'
-                                                    ? 'text-green-500'
-                                                    : 'text-red-500'
-                                            }`}
-                                    >
-                                        {order.status}
-                                    </span>
-                                </div>
-                                {/* total_Amount Price */}
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-600 font-medium">Total Price:</span>
-                                    <span className="text-gray-800 font-semibold">Rs {order.total_Amount}</span>
-                                </div>
+                <div className="space-y-4 py-3 h-full scroll-smooth overflow-y-auto overflow-x-hidden">
+                    {orders.map((order, index) => (
+                        <div key={index} className="p-4 bg-gray-100 rounded-lg" onClick={() => { openDialog(order._id); }}>
+                            <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
+                                <span className="text-gray-600 font-medium">Date:</span>
+                                <span className="text-gray-800">{format(new Date(order.createdAt), 'dd MMM yyyy, hh:mm a')}</span>
                             </div>
-                        ))}
-                    </div>
-                )}
+                            <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-2">
+                                <span className="text-gray-600 font-medium">Order Status:</span>
+                                <span
+                                    className={`font-medium ${order.status === 'pending'
+                                        ? 'text-orange-500'
+                                        : order.status === 'confirmed'
+                                            ? 'text-blue-500'
+                                            : order.status === 'delivered'
+                                                ? 'text-green-500'
+                                                : 'text-red-500'
+                                        }`}
+                                >
+                                    {order.status}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-gray-600 font-medium">Time Remaining:</span>
+                                <span className="text-gray-800 font-semibold">
+                                    {timeRemaining[order._id] ? `${Math.floor(timeRemaining[order._id] / 60)}m ${timeRemaining[order._id] % 60}s` : 'Order Complete'}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
             {isOpen && (
                 <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-black z-50">
                     <div className="bg-gray-900 w-11/12 sm:w-2/3 md:w-1/2 lg:w-2/3 h-11/12 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
-
                         <div className="flex justify-end">
                             <button onClick={closeDialog} className="text-white px-2 py-2">
                                 <RxCross2 />
                             </button>
                         </div>
-                        <div className=''>
+                        <div>
                             <CustomerOrderDetailCard closeOrderDialog={closeOrderDialog} data={data} />
                         </div>
                     </div>
@@ -127,4 +147,4 @@ const orderHistory = ({ closeOrderDialog }) => {
     );
 };
 
-export default orderHistory;
+export default OrderHistory;

@@ -151,7 +151,7 @@ function ResponsiveAppBar() {
                   </Link>
                 ))}
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: 1, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: 2, flexWrap: 'wrap' }}>
                 <div className="relative">
                   <MdOutlineShoppingCart className='h-6 w-6' onClick={openDialog} />
                   {itemCount > 0 && (
@@ -163,7 +163,7 @@ function ResponsiveAppBar() {
                 <LuHistory className='h-5 w-5' onClick={openOrderDialog} />
                 <div className="relative">
                   {orderCount > 0 && (
-                    <span className="absolute h-4 w-4 -top-5 -right-0 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs">
+                    <span className="absolute h-4 w-4 -top-4 -right-0.5 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs">
                       {orderCount}
                     </span>
                   )}
