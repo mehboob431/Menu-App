@@ -163,7 +163,7 @@ function ResponsiveAppBar() {
                 <LuHistory className='h-5 w-5' onClick={openOrderDialog} />
                 <div className="relative">
                   {orderCount > 0 && (
-                    <span className="absolute h-4 w-4 -top-4 -right-0.5 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs">
+                    <span className="count absolute h-4 w-4 -top-[20px] -right-0.5 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs  mr-[14px]">
                       {orderCount}
                     </span>
                   )}
