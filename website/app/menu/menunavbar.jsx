@@ -10,7 +10,7 @@ const MenuNavbar = ({ categories, setActiveCategory }) => {
     }
 
     return (
-        <div className='sticky top-16 z-50 flex overflow-x-auto justify-start md:justify-start lg:justify-center items-center gap-2 bg-white py-1 md:py-2 px-2 '>
+        <div className={`sticky top-[72px] lg:top-20 z-50 flex overflow-x-auto justify-start md:justify-start lg:justify-center items-center gap-2 bg-white py-1 md:py-2 px-2 `}>
             {categories && categories.map((item, i) => (
                 <div
                     key={i}

@@ -10,7 +10,7 @@ import menubg from '../../public/menubg.png'  // Import the local image
 const Page = () => {
   const htitle = "Menu"
   const [categories, setCategories] = useState([])
-  const [activeCategory, setActiveCategory] = useState("all")
+  const [activeCategory, setActiveCategory] = useState()
 
   const getCategory = async () => {
     try {
@@ -41,7 +41,7 @@ const Page = () => {
           <>
             <MenuNavbar categories={categories} setActiveCategory={setActiveCategory} />
             <div className='relative '>
-              <MenuItem categories={categories} activeCategory={activeCategory} />
+              <MenuItem categories={categories} activeCategory={activeCategory || categories[0].value} />
             </div>
           </>
         )}
