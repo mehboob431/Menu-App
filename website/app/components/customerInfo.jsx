@@ -99,17 +99,18 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
                   as="select"
                   id="table_No"
                   name="table_No"
-                  className="w-full p-2 rounded bg-gray-700 text-white"
+                  className="w-full p-2 rounded bg-gray-700 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-[#da6c1e]"
                 >
                   <option value="" label="Select Table Number" />
                   {tablesData.map((table) => (
                     <option key={table._id} value={table.table_No}>
-                      {`Table ${table.table_No}`} {/* Adjust display text as needed */}
+                      {`Table ${table.table_No}`}
                     </option>
                   ))}
                 </Field>
                 <ErrorMessage name="table_No" component="div" className="text-red-500 mt-1" />
               </div>
+
 
               {/* OrderDescription Field */}
               <div className="mb-4">
