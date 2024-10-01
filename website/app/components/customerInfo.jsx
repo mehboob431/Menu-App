@@ -26,7 +26,7 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
 
   const getTables = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/tables/get-tables'); // Adjust URL based on your backend setup
+      const { data } = await axios.get(globalConstantUtil.baseUrl + '/tables/get-tables'); // Adjust URL based on your backend setup
       setTablesData(data); // Assuming data is an array of tables
     } catch (error) {
       console.error('Error fetching tables:', error);
