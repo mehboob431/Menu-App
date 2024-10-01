@@ -93,7 +93,7 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
               </div>
 
               {/* Table Number Dropdown */}
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label className="block text-white mb-2" htmlFor="table_No">Table Number</label>
                 <Field
                   as="select"
@@ -104,12 +104,13 @@ const CustomerInfo = ({ total_Amount, closeOrderDialog, closeDialog }) => {
                   <option value="" label="Select Table Number" />
                   {tablesData.map((table) => (
                     <option key={table._id} value={table.table_No}>
-                      {`Table ${table.table_No}`} {/* Adjust display text as needed */}
+                      {`Table ${table.table_No}`}
                     </option>
                   ))}
                 </Field>
                 <ErrorMessage name="table_No" component="div" className="text-red-500 mt-1" />
               </div>
+
 
               {/* OrderDescription Field */}
               <div className="mb-4">
