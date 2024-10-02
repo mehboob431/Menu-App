@@ -11,10 +11,16 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
     const [showDescription, setShowDescription] = useState(false);
 
     const handleAddToCart = () => {
-        addItemToCart({ id, imageUrl, name, description, ingredient, price });
-        setIsAdded(true);
-        message.success('Item Added successfully');
+        if (isAdded) {
+            message.warning('This item is already added');
+        } else {
+            // Add the item to the cart
+            addItemToCart({ id, imageUrl, name, description, ingredient, price });
+            setIsAdded(true); // Mark the item as added
+            message.success('Item Added successfully');
+        }
     };
+
 
     const handleViewDetails = () => {
         setShowDescription(prevState => !prevState);
@@ -58,13 +64,12 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
                 <div className="flex justify-between p-4">
                     <span>
                         <button
-                            className={`py-2 px-4 rounded-full font-semibold text-white ${isAdded ? 'bg-green-500 cursor-not-allowed' : 'bg-[#da6c1e] hover:bg-[#bf5719]'
-                                } transition-colors`}
+                            className="py-2 px-4 rounded-full font-semibold text-white bg-[#da6c1e] hover:bg-[#bf5719] transition-colors"
                             onClick={handleAddToCart}
-                            disabled={isAdded}
                         >
-                            {isAdded ? 'Item ADDED' : '+ Add To Cart'}
+                            + Add To Cart
                         </button>
+
                     </span>
                     <span className="ml-2">
                         <button

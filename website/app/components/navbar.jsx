@@ -18,6 +18,8 @@ import { RxCross2 } from "react-icons/rx";
 import OrderCard from './ordercard';
 import OrderHistoryCard from './orderHistory';
 import { useCart } from '../context/cartContext';
+import axios from 'axios';
+import globalConstantUtil from '../globalConstantUtils'
 const pages = [
   { label: 'Home', icon: <MdHome />, href: '/' },
   { label: 'Menu', icon: <MdMenuBook />, href: '/menu' },
@@ -62,14 +64,23 @@ function ResponsiveAppBar() {
     setIsOrderOpen(false);
   };
   const [orderCount, setOrderCount] = React.useState(0)
+  const getOrder = async () => {
+    const res = await axios.get(globalConstantUtil.baseUrl + '/orders/get-orders');
+    // console.log('res.data', res.data)
+    const localStorageOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    // console.log('localStorageOrders.data', localStorageOrders)
+    const matchedOrders = res.data.filter((order) => localStorageOrders.includes(order._id));
+    // console.log('matchedOrders.data', matchedOrders)
+    setOrderCount(matchedOrders.length);
+
+  }
 
   if (typeof window !== 'undefined') {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    React.useEffect(() => {
+    const localStorageOrders = JSON.parse(localStorage.getItem('orders')) || [];
 
-      console.log(orders.length)
-      setOrderCount(orders.length);
-    }, [orders])
+    React.useEffect(() => {
+      getOrder()
+    }, [localStorageOrders])
   }
   return (
     <div className='relative'>

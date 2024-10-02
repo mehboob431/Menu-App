@@ -122,7 +122,7 @@ const OrderHistory = ({ closeOrderDialog }) => {
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-600 font-medium">Time Remaining:</span>
                                 <span className="text-gray-800 font-semibold">
-                                    {timeRemaining[order._id] ? `${Math.floor(timeRemaining[order._id] / 60)}m ${timeRemaining[order._id] % 60}s` : 'Order Complete'}
+                                    {timeRemaining[order._id] ? `${Math.floor(timeRemaining[order._id] / 60)}m ${timeRemaining[order._id] % 60}s` : ''}
                                 </span>
                             </div>
                         </div>
