@@ -15,15 +15,13 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.h-full {
+    height: 60%;
 }
 .navbar {
   border:none;
@@ -47,4 +45,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 100%;
+}
+.min-h-screen {
+    min-height: 61vh;
 }

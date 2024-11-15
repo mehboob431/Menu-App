@@ -25,9 +25,9 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
     };
 
     return (
-        <div className="flex justify-center p-4 mx-auto relative">
+        <div className="flex justify-center p-4 my-0 mx-auto relative">
             <div
-                className="bg-white text-black rounded-3xl shadow-lg relative mt-10 pt-20 pb-4 px-4 transition-all duration-300"
+                className="bg-white text-black rounded-3xl shadow-lg relative mt-8 pt-20 pb-4 px-4 transition-all duration-300"
                 style={{ width: '220px', height: '320px', borderRadius: '25px' }}
             >
                 {/* Image container with absolute positioning */}

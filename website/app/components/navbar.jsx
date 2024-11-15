@@ -22,7 +22,6 @@ import { useCart } from '../context/cartContext';
 import axios from 'axios';
 import globalConstantUtil from '../globalConstantUtils'
 const pages = [
-  { label: 'Home', icon: <MdHome />, href: '/' },
   { label: 'Menu', icon: <MdMenuBook />, href: '/menu' },
   { label: 'Contact Us', icon: <MdMail />, href: '/contact' }
 

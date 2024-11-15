@@ -64,10 +64,10 @@ const SearchAndFilter = () => {
             value={searchQuery}
             onChange={handleSearchInputChange}
             placeholder="Search Food"
-            className="w-full text-black border-none rounded-full p-4 pl-12"
-            style={{
-              background: 'linear-gradient( rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9))',
-            }}
+            className="w-full rounded-full bg-[#f2f7f5] text-black outline-none border-none focus:ring-0 p-4 pl-12"
+          // style={{
+          //   background: 'linear-gradient( rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9))',
+          // }}
           />
 
 
