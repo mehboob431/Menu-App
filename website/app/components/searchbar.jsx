@@ -1,8 +1,8 @@
-"use client";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MenuCard from './menucard';
 import globalConstantUtil from '../globalConstantUtils';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchAndFilter = () => {
   const [category, setCategory] = useState('');
@@ -53,37 +53,24 @@ const SearchAndFilter = () => {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearch = () => {
-    // Filter menu items based on category and search query
-    console.log('Category:', category);
-    console.log('Search Query:', searchQuery);
-  };
-
   return (
     <div className="flex flex-col justify-center items-center h-full w-full p-4 md:p-6 rounded-3xl relative">
       {/* Search bar and category select */}
-      <div className="sticky top-20 z-50 bg-black bg-opacity-80 flex flex-col md:flex-row gap-4 items-center justify-around p-4 md:p-6 rounded-lg text-white w-full max-w-2xl">
-        <div className="md:w-1/3 w-full">
-          <select
-            value={category}
-            onChange={handleCategoryChange}
-            className="w-full bg-black text-white border border-white rounded-lg p-2"
-          >
-            {categories.map((cat, i) => (
-              <option key={i} value={cat.value}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex items-center justify-center w-full md:w-2/3">
+      <div className="sticky top-20 z-50  bg-opacity-80 flex flex-col md:flex-row gap-4 items-center justify-around p-4 md:p-6 rounded-lg text-white w-full max-w-2xl">
+        <div className="relative sticky flex items-center justify-center w-full md:w-2/3">
+          <FaSearch className="absolute left-4 text-gray-500" />
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchInputChange}
             placeholder="Search Food"
-            className="w-full bg-black text-white border border-white rounded-lg p-2"
+            className="w-full text-black border-none rounded-full p-4 pl-12"
+            style={{
+              background: 'linear-gradient( rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9))',
+            }}
           />
+
+
         </div>
       </div>
 

@@ -1,14 +1,15 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import Pageheading from '../components/pageheading'
+// import Pageheading from '../components/pageheading'
 import MenuNavbar from './menunavbar'
 import MenuItem from './menuItem'
 import globalConstantUtil from '../globalConstantUtils'
 import axios from 'axios'
-import menubg from '../../public/menubg.png'  // Import the local image
+// import menubg from '../../public/menubg.png'  // Import the local image
+import Searchbar from '../components/searchbar'
 
 const Page = () => {
-  const htitle = "Menu"
+  // const htitle = "Menu"
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState()
 
@@ -32,9 +33,8 @@ const Page = () => {
 
   return (
     <div className='relative'>
-      <div className='relative '>
-        {/* Use the imported image here */}
-        <Pageheading htitle={htitle} bgimage={menubg} />
+      <div className='relative mt-16'>
+        <Searchbar />
       </div>
       <div>
         {categories.length > 0 && (

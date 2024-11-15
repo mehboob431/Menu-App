@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from 'react';
@@ -86,10 +87,19 @@ function ResponsiveAppBar() {
     <div className='relative'>
       <div className='navbar'>
         {/* Background image with overlay */}
-        <AppBar position="static" sx={{ backgroundColor: 'black', borderBottomLeftRadius: 7, borderBottomRightRadius: 7, opacity: 0.8, padding: 1, }}>
+        <AppBar
+          position="static"
+          sx={{
+            backgroundColor: 'white',
+            opacity: 0.8,
+            padding: 1,
+            boxShadow: 'none'
+          }}
+        >
+
           <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Box className="lg:hidden w-full">
-              <IconButton aria-label="menu" onClick={handleOpenNavMenu} className="text-white">
+              <IconButton aria-label="menu" onClick={handleOpenNavMenu} className="text-black">
                 <MenuIcon />
               </IconButton>
               <Menu
@@ -145,7 +155,7 @@ function ResponsiveAppBar() {
                   <Link key={index} href={page.href} passHref>
                     <Button
                       sx={{
-                        color: 'white',
+                        color: 'black',
                         mx: 1,
                         display: ['none', 'none', 'block'],
                         '&:hover': {
@@ -164,17 +174,17 @@ function ResponsiveAppBar() {
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: 2, flexWrap: 'wrap' }}>
                 <div className="relative">
-                  <MdOutlineShoppingCart className='h-6 w-6' onClick={openDialog} />
+                  <MdOutlineShoppingCart className='h-6 w-6 text-black' onClick={openDialog} />
                   {itemCount > 0 && (
-                    <span className="absolute h-4 w-4 -top-2 -right-0.5 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs">
+                    <span className="absolute h-4 w-4 -top-2 -right-0.5 bg-red-300 text-black rounded-full justify-center items-center text-center text-xs">
                       {itemCount}
                     </span>
                   )}
                 </div>
-                <LuHistory className='h-5 w-5' onClick={openOrderDialog} />
+                <LuHistory className='h-5 w-5 text-black' onClick={openOrderDialog} />
                 <div className="relative">
                   {orderCount > 0 && (
-                    <span className="count absolute h-4 w-4 -top-[20px] -right-0.5 bg-red-300 text-white rounded-full justify-center items-center text-center text-xs  mr-[14px]">
+                    <span className="count absolute h-4 w-4 -top-[20px] -right-0.5 bg-red-300 text-black rounded-full justify-center items-center text-center text-xs  mr-[14px]">
                       {orderCount}
                     </span>
                   )}
@@ -188,10 +198,10 @@ function ResponsiveAppBar() {
       {
         isOpen && (
           <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-black z-50">
-            <div className="bg-gray-900 w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 h-3/4 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
+            <div className="bg-white w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 h-3/4 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
 
               <div className="flex justify-end">
-                <button onClick={closeDialog} className="text-white px-2 py-2">
+                <button onClick={closeDialog} className="text-black px-2 py-2">
                   <RxCross2 />
                 </button>
               </div>
@@ -205,10 +215,10 @@ function ResponsiveAppBar() {
       {
         isOrderOpen && (
           <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-black z-50">
-            <div className="bg-gray-900 w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
+            <div className="bg-white w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
 
               <div className="flex justify-end">
-                <button onClick={closeOrderDialog} className="text-white px-2 py-2">
+                <button onClick={closeOrderDialog} className="text-black px-2 py-2">
                   <RxCross2 />
                 </button>
               </div>

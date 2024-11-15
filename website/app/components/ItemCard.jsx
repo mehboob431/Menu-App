@@ -26,7 +26,7 @@ const ItemCard = ({ item }) => {
 
 
     return (
-        <div className="bg-gray-950 rounded-xl px-2 py-1 flex items-center justify-between mb-4 w-full">
+        <div className="bg-[#42f5a7] rounded-xl px-2 py-1 flex items-center justify-between mb-4 w-full">
             <div className='flex flex-row items-center justify-start w-full'>
                 <Image
                     src={item.imageUrl}
@@ -38,22 +38,22 @@ const ItemCard = ({ item }) => {
                 <div className="flex flex-col items-start justify-around px-1 w-full">
                     <div className="flex flex-row items-start justify-between px-1 w-full">
                         <div className="flex flex-col items-start max-w-7/12 py-2 px-1">
-                            <h3 className="text-white font-medium">{item.name}</h3>
-                            <p className="text-white font-thin">{`(${item.ingredient})`}</p>
+                            <h3 className="text-black font-medium">{item.name}</h3>
+                            <p className="text-black font-thin">{`(${item.ingredient})`}</p>
                         </div>
-                        <p className="text-gray-400 px-2 py-2 text-md font-medium md:text-lg lg:text-xl">{`Rs ${item.price}`}</p>
+                        <p className="text-black px-2 py-2 text-md font-medium md:text-lg lg:text-xl">{`Rs ${item.price}`}</p>
                     </div>
                     <div className="flex items-center space-x-2 px-3">
                         <button
                             onClick={handleQuantityDecrement}
-                            className="text-white text-3xl font-medium"
+                            className="text-black text-3xl font-medium"
                         >
                             -
                         </button>
-                        <span className="text-white text-xl font-medium">{item.quantity}</span>
+                        <span className="text-black text-xl font-medium">{item.quantity}</span>
                         <button
                             onClick={handleQuantityIncrement}
-                            className="text-white text-3xl font-medium"
+                            className="text-black text-3xl font-medium"
                         >
                             +
                         </button>
@@ -63,7 +63,7 @@ const ItemCard = ({ item }) => {
             {/* Delete Button */}
             <button
                 onClick={() => { removeItemFromCart(item.id) }}
-                className=" text-red-600 text-2xl font-bold ml-4"
+                className=" text-black text-2xl font-bold ml-4"
             >
                 <RiDeleteBin6Line />
             </button>

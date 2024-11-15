@@ -14,71 +14,67 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
         if (isAdded) {
             message.warning('This item is already added');
         } else {
-            // Add the item to the cart
             addItemToCart({ id, imageUrl, name, description, ingredient, price });
-            setIsAdded(true); // Mark the item as added
+            setIsAdded(true);
             message.success('Item Added successfully');
         }
     };
-
 
     const handleViewDetails = () => {
         setShowDescription(prevState => !prevState);
     };
 
     return (
-        <div className="relative max-w-xs mx-auto p-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 rounded-xl transition-transform">
-            <div className="bg-[#1c1816] text-white rounded-xl overflow-hidden shadow-lg relative">
-
-                <div className="aspect-square relative rounded overflow-hidden">
+        <div className="flex justify-center p-4 mx-auto relative">
+            <div
+                className="bg-white text-black rounded-3xl shadow-lg relative mt-10 pt-20 pb-4 px-4 transition-all duration-300"
+                style={{ width: '220px', height: '320px', borderRadius: '25px' }}
+            >
+                {/* Image container with absolute positioning */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 w-36 h-36 rounded-full shadow-xl bg-white flex items-center justify-center">
                     <Image
                         src={imageUrl}
                         alt={name}
-                        width={100}
-                        height={100}
-                        className="rounded object-cover w-full h-full"
+                        layout="fill"
+                        className="object-cover rounded-full"
                     />
-                    <div
-                        className={`absolute inset-0 bg-black bg-opacity-75 transition-opacity duration-300 flex items-center justify-center ${showDescription ? 'opacity-100' : 'opacity-0'
-                            }`}
+                </div>
+
+                <div className="text-center mt-8 px-4">
+                    <h3 className="font-bold text-lg">{name}</h3>
+                    <p className="text-sm text-gray-500 mt-1">{ingredient}</p>
+                    <p className="text-orange-600 mt-1 font-semibold">Rs: {price}</p>
+                </div>
+
+                <div className="flex flex-col items-center gap-2 mt-4">
+                    <button
+                        className="w-full py-2 text-sm rounded font-semibold text-white bg-[#da6c1e] hover:bg-[#bf5719] transition-colors"
+                        style={{ borderRadius: '20px' }}
+                        onClick={handleAddToCart}
                     >
-                        <p className="text-white text-lg font-semibold px-4">
-                            {description}
-                        </p>
-                    </div>
+                        + Add To Cart
+                    </button>
+                    <button
+                        className="w-full py-2 text-sm rounded font-semibold text-white bg-[#da6c1e] hover:bg-[#bf5719] transition-colors"
+                        style={{ borderRadius: '20px' }}
+                        onClick={handleViewDetails}
+                    >
+                        View Details
+                    </button>
                 </div>
 
-                {/* Content */}
-                <div className="p-4">
-                    <h3 className="font-bold text-xl">
-                        {name}
-                        {/* {description && <span className="description-text"> ({description})</span>} */}
-                    </h3>
-                    <p className="text-sm text-gray-400 mt-1">{ingredient}</p>
-
-                    <div className="flex justify-between items-center mt-4">
-                        <span className="text-lg font-semibold">Rs {price}</span>
-                    </div>
-                </div>
-
-                <div className="flex justify-between p-4">
-                    <span>
-                        <button
-                            className="py-2 px-4 rounded-full font-semibold text-white bg-[#da6c1e] hover:bg-[#bf5719] transition-colors"
-                            onClick={handleAddToCart}
-                        >
-                            + Add To Cart
-                        </button>
-
-                    </span>
-                    <span className="ml-2">
-                        <button
-                            className="py-2 px-4 rounded-full font-semibold text-white bg-[#da6c1e] hover:bg-[#bf5719] transition-colors"
-                            onClick={handleViewDetails}
-                        >
-                            View Details
-                        </button>
-                    </span>
+                {/* Description overlay with bottom-to-top transition */}
+                <div
+                    className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 text-white text-center p-4 transition-transform duration-300 ease-in-out ${showDescription ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                    style={{ borderRadius: '25px' }}
+                >
+                    <p className="text-sm">{description}</p>
+                    <button
+                        className="absolute top-2 right-2 text-white text-lg"
+                        onClick={handleViewDetails}
+                    >
+                        &times;
+                    </button>
                 </div>
             </div>
         </div>

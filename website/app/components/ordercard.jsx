@@ -26,9 +26,9 @@ const OrderCard = ({ closeOrderDialog }) => {
 
     return (
         <>
-            <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md min-h-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto shadow-lg">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md min-h-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto shadow-lg">
                 <div className="border-b border-gray-700 pb-4 mb-4">
-                    <h2 className="text-lg font-semibold text-white text-center sm:text-left">Items Cart</h2>
+                    <h2 className="text-lg font-semibold text-black text-center sm:text-left">Items Cart</h2>
                 </div>
                 <div className='flex flex-col items-center justify-start overflow-y-auto min-h-[22rem] max-h-[22rem]'>
                     {items.map(item => (
@@ -39,7 +39,7 @@ const OrderCard = ({ closeOrderDialog }) => {
                     ))}
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
-                    <h4 className="text-white font-semibold text-md md:text-lg lg:text-xl mb-4 sm:mb-0">total_Amount: Rs {total_Amount}</h4>
+                    <h4 className="text-black font-semibold text-md md:text-lg lg:text-xl mb-4 sm:mb-0">total_Amount: Rs {total_Amount}</h4>
                     <button className="bg-[#da6c1e] text-white px-4 py-2 rounded-full w-full sm:w-auto"
                         disabled={items.length === 0}
                         onClick={() => {
@@ -53,11 +53,11 @@ const OrderCard = ({ closeOrderDialog }) => {
                 </div>
             </div>
             {isOpen && (
-                <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-black z-50">
-                    <div className="bg-gray-900 w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 h-3/4 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
+                <div className="fixed inset-0 flex justify-center items-start bg-opacity-50 bg-white z-50">
+                    <div className="bg-white w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 h-3/4 left-0 top-20 z-50 rounded-lg shadow-lg overflow-y-auto relative">
 
                         <div className="flex justify-end">
-                            <button onClick={closeDialog} className="text-white px-2 py-2">
+                            <button onClick={closeDialog} className="text-black px-2 py-2">
                                 <RxCross2 />
                             </button>
                         </div>
