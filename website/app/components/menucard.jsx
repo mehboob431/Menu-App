@@ -63,19 +63,21 @@ const Card = ({ id, imageUrl, name, description, ingredient, price }) => {
                     </button>
                 </div>
 
-                {/* Description overlay with bottom-to-top transition */}
-                <div
-                    className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 text-white text-center p-4 transition-transform duration-300 ease-in-out ${showDescription ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
-                    style={{ borderRadius: '25px' }}
-                >
-                    <p className="text-sm">{description}</p>
-                    <button
-                        className="absolute top-2 right-2 text-white text-lg"
-                        onClick={handleViewDetails}
+                {/* Description overlay */}
+                {showDescription && (
+                    <div
+                        className="absolute inset-0 bg-black bg-opacity-75 text-white text-center p-4 flex flex-col justify-center items-center transition-opacity duration-300"
+                        style={{ borderRadius: '25px' }}
                     >
-                        &times;
-                    </button>
-                </div>
+                        <p className="text-sm mb-4">{description}</p>
+                        <button
+                            className="text-white text-lg absolute top-2 right-2"
+                            onClick={handleViewDetails}
+                        >
+                            &times;
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
